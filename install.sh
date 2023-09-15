@@ -19,7 +19,7 @@ echo "███████║█████╗  ██║   ██║██╔
 echo "██╔══██║██╔══╝  ██║   ██║██║╚██╗██║  ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║"
 echo "██║  ██║███████╗╚██████╔╝██║ ╚████║  ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║"
 echo "╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝  ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝"
-echo "                              https://github.com/seeingangelz"
+echo "                              https://github.com/charl-pena original: seeingangelz"
 echo ""
 echo "Installing programs..."
 echo "Already have yay installed? (y/n)"

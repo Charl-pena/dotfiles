@@ -10,15 +10,20 @@ Screenshot
 
 Web Browser
 	Firefox	firefox
+#	qutebrowser	qutebrowser
 File Manager
+#	PCManFM	pcmanfm
 	Ranger	xdotool key --clearmodifiers "Super_L+F1"
 Games
 	Steam	steam
+	Lutris	lutris
 Terminal
 	st	st
+	Kitty	kitty 
 	Alacritty	alacritty
 Text Editor
 	Neovim	st -e nvim 
+	Emacs	emacs
 Office
 	LibreOffice
 		Writer	libreoffice --writer
@@ -36,6 +41,7 @@ Edit config
 		DWMBLOCKS	st -e nvim $HOME/.config/suckless/dwmblocks-async/config.c
 	Terminal
 		Alacritty	st -e nvim $HOME/.config/alacritty/alacritty.yml
+		Kitty	st -e nvim $HOME/.config/kitty/kitty.conf
 		st	st -e nvim $HOME/.config/suckless/st/config.def.h
 	Text Editor
 		Neovim
@@ -43,6 +49,7 @@ Edit config
 			options	st -e nvim $HOME/.config/nvim/lua/aeon/options.lua	
 			keymaps	st -e nvim $HOME/.config/nvim/lua/aeon/keymaps.lua
 			plugins	st -e nvim $HOME/.config/nvim/lua/aeon/plugins.lua
+		Emacs	st -e nvim $HOME/.config/emacs/init.el
 	Other
 		Cava	st -e nvim $HOME/.config/cava/config
 		Cmus	st -e nvim $HOME/.config/cmus/autosave
