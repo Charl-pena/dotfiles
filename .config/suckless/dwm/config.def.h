@@ -272,6 +272,9 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,                     XK_r,                           quit,                      {0} },
 };
 
+static const char *zoomin[]  = { "/home/moruz/bin/zoom_in.sh", NULL };
+static const char *zoomout[] = { "/home/moruz/bin/zoom_out.sh", NULL };
+
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
@@ -290,8 +293,10 @@ static const Button buttons[] = {
   { ClkStatusText,        ShiftMask,            Button1,     sigstatusbar,   {.i = 6} },
   { ClkClientWin,         MODKEY,               Button1,     movemouse,      {0} },
   { ClkClientWin,         MODKEY|ShiftMask,     Button1,     moveorplace,    {.i = 2} },
-  { ClkClientWin,         MODKEY,               Button3,     resizemouse,    {0} },
-  { ClkClientWin,         MODKEY|ShiftMask,     Button3,     resizeorfacts,  {0} },
+  { ClkClientWin,         MODKEY|ShiftMask,     Button4,     spawn,          {.v = zoomin } },
+  { ClkClientWin,         MODKEY|ShiftMask,     Button5,     spawn,          {.v = zoomout } },
+  { ClkClientWin,         MODKEY,               9,     resizemouse,    {0} },
+  { ClkClientWin,         MODKEY|ShiftMask,     9,     resizeorfacts,  {0} },
   { ClkTagBar,            0,                    Button1,     view,           {0} },
   { ClkTagBar,            0,                    Button3,     toggleview,     {0} },
   { ClkTagBar,            MODKEY,               Button1,     tag,            {0} },
