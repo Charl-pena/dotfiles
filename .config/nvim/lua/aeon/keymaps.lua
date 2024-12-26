@@ -49,4 +49,4 @@ keymap("n", "<c-n>", ":NvimTreeToggle<cr>", opts)
 
 -- Prettier --
 -- Formatear el archivo actual
-keymap('n', '<leader>ñ',":lua vim.lsp.buf.format()<CR>", opts) 
+keymap("n", "<leader>ñ", ":lua vim.lsp.buf.format({ async = true })<CR>", opts)
