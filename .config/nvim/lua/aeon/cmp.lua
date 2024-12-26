@@ -108,6 +108,7 @@ cmp.setup {
     end,
   },
   sources = {
+    { name = 'nvim_lsp' },  -- Asegúrate de que este está habilitado
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },

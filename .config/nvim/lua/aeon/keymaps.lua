@@ -46,3 +46,7 @@ keymap("n", "<c-x>", "<cmd>Gitsigns preview_hunk<cr>", opts)
 
 -- NvimTree
 keymap("n", "<c-n>", ":NvimTreeToggle<cr>", opts)
+
+-- Prettier --
+-- Formatear el archivo actual
+keymap('n', '<leader>ñ',":lua vim.lsp.buf.format()<CR>", opts) 

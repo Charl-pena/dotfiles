@@ -53,14 +53,17 @@ return packer.startup(function(use)
   use "lukas-reineke/indent-blankline.nvim"
   use "nvim-treesitter/nvim-treesitter"
   use "NvChad/nvim-colorizer.lua"
+  use 'famiu/bufdelete.nvim'
   use "nvim-tree/nvim-web-devicons"
   use "windwp/nvim-autopairs"
   use "akinsho/bufferline.nvim"
-  use "kyazdani42/nvim-tree.lua"
+  use "nvim-tree/nvim-tree.lua"
   use "akinsho/toggleterm.nvim"
   use "goolord/alpha-nvim"
   use "lewis6991/gitsigns.nvim"
-  use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true }}
+  use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true }}
+  use { 'nvim-lua/plenary.nvim' }
+  use { 'nvimtools/none-ls.nvim', requires = { 'nvim-lua/plenary.nvim' }}
 
   -- LSP 
   use {
@@ -71,6 +74,7 @@ return packer.startup(function(use)
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
+  use 'hrsh7th/cmp-nvim-lsp'   -- Fuente de autocompletado para LSP (Language Server Protocol)
   use "hrsh7th/cmp-buffer" -- buffer completions
   use "hrsh7th/cmp-path" -- path completions
   use "hrsh7th/cmp-cmdline" -- cmdline completions
