@@ -63,6 +63,8 @@ return packer.startup(function(use)
   use "lewis6991/gitsigns.nvim"
   use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true }}
   use { 'nvimtools/none-ls.nvim', requires = { 'nvim-lua/plenary.nvim' }}
+  use 'numToStr/Comment.nvim'
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   -- LSP 
   use {

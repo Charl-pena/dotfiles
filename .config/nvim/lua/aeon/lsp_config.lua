@@ -22,7 +22,8 @@ mason_lspconfig.setup({
                         "cssls",
                          "html",
                           "hls",
-                         "bashls"
+                         "bashls",
+                         "ts_ls"
                        }
 })
 
@@ -33,6 +34,16 @@ lspconfig.gopls.setup {}
 lspconfig.cssls.setup {}
 lspconfig.html.setup {}
 lspconfig.bashls.setup {}
+
+-- Configuración para typescript
+lspconfig.ts_ls.setup {
+  on_attach = function(client, bufnr)
+    -- Opciones adicionales como deshabilitar el formateador de tsserver si prefieres otro formateador.
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+  capabilities = require('cmp_nvim_lsp').default_capabilities() -- Integración con nvim-cmp
+}
+
 -- Configuración para Haskell
 lspconfig.hls.setup{
 --    cmd = {"/home/moruz/.ghcup/hls/2.9.0.1/bin/haskell-language-server-wrapper"},

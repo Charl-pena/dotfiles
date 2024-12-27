@@ -21,19 +21,21 @@ vim.opt.undofile = true
 vim.opt.updatetime = 300
 vim.opt.writebackup = false
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 3
-vim.opt.tabstop = 3
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
 vim.opt.cursorline = true
 vim.opt.cmdheight = 1
 vim.opt.number = true
 vim.opt.list = true
 vim.opt.relativenumber = false
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "no"
 vim.opt.numberwidth = 2
 vim.opt.wrap = false
 vim.opt.scrolloff = 4
 vim.opt.sidescrolloff = 4
 vim.opt.guifont = "JetBrainsMono Nerd Font:h18"
+
+vim.opt.fillchars = "eob: "
 
 vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'DiffAdd' })
 vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'DiffChange' })
