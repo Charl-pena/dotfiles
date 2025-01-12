@@ -21,6 +21,10 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- Mover lineas con alt
+keymap("n", "<A-j>", ":m .-2<CR>==", opts)
+keymap("n", "<A-k>", ":m .+1<CR>==", opts)
+
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
@@ -37,6 +41,10 @@ keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 keymap("v", "p", '"_dP', opts)
 
+-- Mover lineas con alt
+keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
+
 -- Telescope
 keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
@@ -45,8 +53,12 @@ keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
 keymap("n", "<c-x>", "<cmd>Gitsigns preview_hunk<cr>", opts)
 
 -- NvimTree
-keymap("n", "<c-n>", ":NvimTreeToggle<cr>", opts)
+-- keymap("n", "<c-n>", ":NvimTreeToggle<cr>", opts)
+
+-- Neo-tree
+keymap("n", "<c-n>", ":Neotree toggle<cr>", opts)
 
 -- Prettier --
 -- Formatear el archivo actual
-keymap("n", "<leader>ñ", ":lua vim.lsp.buf.format({ async = true })<CR>", opts)
+-- keymap("n", "<leader>ñ", ":lua vim.lsp.buf.format({ async = true })<CR>", opts)
+keymap("n", "<leader>ñ", "<cmd>lua if not pcall(vim.lsp.buf.format, { async = true }) then print('Error al formatear') end<CR>", opts)

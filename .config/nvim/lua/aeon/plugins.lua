@@ -40,14 +40,14 @@ packer.init {
 
 -- Install your plugins here
 return packer.startup(function(use)
-   -- Colorschemes
+  -- Colorschemes
   use { 'AlphaTechnolog/pywal.nvim', as = 'pywal' }
   use "xiyaowong/transparent.nvim"
 
-   -- My plugins here
+  -- My plugins here
   use "wbthomason/packer.nvim" -- Have packer manage itself
-  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
-  use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
+  use "nvim-lua/popup.nvim"    -- An implementation of the Popup API from vim in Neovim
+  use "nvim-lua/plenary.nvim"  -- Useful lua functions used ny lots of plugins
   use "nvim-telescope/telescope.nvim"
   use "nvim-telescope/telescope-media-files.nvim"
   use "lukas-reineke/indent-blankline.nvim"
@@ -57,32 +57,40 @@ return packer.startup(function(use)
   use "nvim-tree/nvim-web-devicons"
   use "windwp/nvim-autopairs"
   use "akinsho/bufferline.nvim"
-  use "nvim-tree/nvim-tree.lua"
+  -- use "nvim-tree/nvim-tree.lua"
   use "akinsho/toggleterm.nvim"
   use "goolord/alpha-nvim"
   use "lewis6991/gitsigns.nvim"
-  use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true }}
-  use { 'nvimtools/none-ls.nvim', requires = { 'nvim-lua/plenary.nvim' }}
+  use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
+  use { 'nvimtools/none-ls.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use 'numToStr/Comment.nvim'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
-
-  -- LSP 
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- opcional, pero recomendado
+      "MunifTanjim/nui.nvim",
+    }
+  }
+  -- LSP
   use {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
-}
+  }
 
   -- cmp plugins
-  use "hrsh7th/nvim-cmp" -- The completion plugin
-  use 'hrsh7th/cmp-nvim-lsp'   -- Fuente de autocompletado para LSP (Language Server Protocol)
-  use "hrsh7th/cmp-buffer" -- buffer completions
-  use "hrsh7th/cmp-path" -- path completions
-  use "hrsh7th/cmp-cmdline" -- cmdline completions
+  use "hrsh7th/nvim-cmp"         -- The completion plugin
+  use 'hrsh7th/cmp-nvim-lsp'     -- Fuente de autocompletado para LSP (Language Server Protocol)
+  use "hrsh7th/cmp-buffer"       -- buffer completions
+  use "hrsh7th/cmp-path"         -- path completions
+  use "hrsh7th/cmp-cmdline"      -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
 
   -- snippets
-  use "L3MON4D3/LuaSnip" --snippet engine
+  use "L3MON4D3/LuaSnip"             --snippet engine
   use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   -- Automatically set up your configuration after cloning packer.nvim
