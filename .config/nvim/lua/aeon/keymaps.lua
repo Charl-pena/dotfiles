@@ -35,6 +35,10 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
+-- Abrir errores
+
+keymap('n', '<Leader>e', ":lua vim.diagnostic.open_float()<CR>", opts)
+
 -- Visual --
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
@@ -62,3 +66,7 @@ keymap("n", "<c-n>", ":Neotree toggle<cr>", opts)
 -- Formatear el archivo actual
 -- keymap("n", "<leader>ñ", ":lua vim.lsp.buf.format({ async = true })<CR>", opts)
 keymap("n", "<leader>ñ", "<cmd>lua if not pcall(vim.lsp.buf.format, { async = true }) then print('Error al formatear') end<CR>", opts)
+
+-- ToggleTerm --
+-- Abrir lazygit 
+keymap("n", "<leader>g", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)

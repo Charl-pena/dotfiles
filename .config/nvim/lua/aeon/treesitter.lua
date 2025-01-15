@@ -9,6 +9,7 @@ treesitter.setup {
         enable = true,              -- Activa el resaltado de sintaxis
         additional_vim_regex_highlighting = false,
     },
+    indent ={ enable = true,}
 }
 
 --treesitter.setup {

@@ -1,30 +1,31 @@
 local status_ok, mason = pcall(require, "mason")
 if not status_ok then
-	return
+  return
 end
 
 local status_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
 if not status_ok then
-	return
+  return
 end
 
 local status_ok, lspconfig = pcall(require, "lspconfig")
 if not status_ok then
-	return
+  return
 end
 
 mason.setup()
 mason_lspconfig.setup({
   ensure_installed = { "lua_ls",
-                       "clangd",
-                      "pyright",
-                        "gopls",
-                        "cssls",
-                         "html",
-                          "hls",
-                         "bashls",
-                         "ts_ls"
-                       }
+    "clangd",
+    "pyright",
+    -- "gopls",
+    "cssls",
+    "html",
+    "hls",
+    "bashls",
+    -- "ts_ls",
+    -- "omnisharp"
+  }
 })
 
 lspconfig.lua_ls.setup {}
@@ -34,6 +35,13 @@ lspconfig.gopls.setup {}
 lspconfig.cssls.setup {}
 lspconfig.html.setup {}
 lspconfig.bashls.setup {}
+
+-- Configuración para C#
+lspconfig.omnisharp.setup {
+  cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+  root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
+  capabilities = require 'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+}
 
 -- Configuración para typescript
 lspconfig.ts_ls.setup {
@@ -45,18 +53,18 @@ lspconfig.ts_ls.setup {
 }
 
 -- Configuración para Haskell
-lspconfig.hls.setup{
---    cmd = {"/home/moruz/.ghcup/hls/2.9.0.1/bin/haskell-language-server-wrapper"},
-    filetypes = { "haskell", "lhaskell", "cabal" },
-    root_dir = lspconfig.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
-    settings = {
-        haskell = {
-            formattingProvider = "ormolu",  -- Cambia a "brittany" o "fourmolu" si prefieres otro formateador
-        }
+lspconfig.hls.setup {
+  --    cmd = {"/home/moruz/.ghcup/hls/2.9.0.1/bin/haskell-language-server-wrapper"},
+  filetypes = { "haskell", "lhaskell", "cabal" },
+  root_dir = lspconfig.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
+  settings = {
+    haskell = {
+      formattingProvider = "ormolu",       -- Cambia a "brittany" o "fourmolu" si prefieres otro formateador
     }
+  }
 }
 lspconfig.emmet_language_server.setup({
-  filetypes = {  "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+  filetypes = { "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
   -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
   -- **Note:** only the options listed in the table are supported.
   init_options = {

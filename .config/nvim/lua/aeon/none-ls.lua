@@ -11,7 +11,7 @@ null_ls.setup({
       extra_args = { "--double-quote", "--jsx-double-quote", "--semi=true" },                                                      -- Opciones opcionales
       filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css", "html", "json", "yaml", "markdown" }, -- Tipos de archivo soportados
     }),
-    null_ls.builtins.formatting.ormolu,
+    -- null_ls.builtins.formatting.ormolu,
   },
   -- Agregar un manejador de errores para evitar que el archivo se corrompa
   on_attach = function(client)
