@@ -13,6 +13,21 @@ if not status_ok then
   return
 end
 
+local on_attach = function(client, bufnr)
+  require("lsp_signature").on_attach({
+    bind = true,
+    doc_lines = 2,          -- Número de líneas para la documentación
+    floating_window = true, -- Ventana flotante para mostrar la firma
+    fix_pos = false,
+    hint_enable = true,
+    hint_prefix = " ", -- Puedes personalizar el ícono
+    hi_parameter = "Search", -- Highlight para el parámetro actual
+    handler_opts = {
+      border = "rounded" -- Borde redondeado en la ventana
+    },
+  }, bufnr)
+end
+
 mason.setup()
 mason_lspconfig.setup({
   ensure_installed = { "lua_ls",
@@ -30,7 +45,13 @@ mason_lspconfig.setup({
 
 lspconfig.lua_ls.setup {}
 lspconfig.clangd.setup {}
-lspconfig.pyright.setup {}
+lspconfig.pyright.setup {
+  settings = {
+    python = {
+      pythonPath = vim.fn.systemlist("poetry env info --path")[1] .. "/bin/python"
+    }
+  }
+}
 lspconfig.gopls.setup {}
 lspconfig.cssls.setup {}
 lspconfig.html.setup {}
@@ -38,28 +59,32 @@ lspconfig.bashls.setup {}
 
 -- Configuración para C#
 lspconfig.omnisharp.setup {
-  cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+  on_attach = on_attach,
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  cmd = { "dotnet", "/home/moruz/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
   root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
-  capabilities = require 'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  enable_import_completion = true,
+  organize_imports_on_format = true,
+  enable_roslyn_analyzers = true,
 }
 
 -- Configuración para typescript
 lspconfig.ts_ls.setup {
   on_attach = function(client, bufnr)
-    -- Opciones adicionales como deshabilitar el formateador de tsserver si prefieres otro formateador.
+    on_attach(client, bufnr) -- Llamamos a la función on_attach común
+    -- Opciones adicionales, por ejemplo:
     client.server_capabilities.documentFormattingProvider = false
   end,
-  capabilities = require('cmp_nvim_lsp').default_capabilities() -- Integración con nvim-cmp
+  capabilities = require("cmp_nvim_lsp").default_capabilities()
 }
 
 -- Configuración para Haskell
 lspconfig.hls.setup {
-  --    cmd = {"/home/moruz/.ghcup/hls/2.9.0.1/bin/haskell-language-server-wrapper"},
   filetypes = { "haskell", "lhaskell", "cabal" },
   root_dir = lspconfig.util.root_pattern("*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"),
   settings = {
     haskell = {
-      formattingProvider = "ormolu",       -- Cambia a "brittany" o "fourmolu" si prefieres otro formateador
+      formattingProvider = "ormolu", -- Cambia a "brittany" o "fourmolu" si prefieres otro formateador
     }
   }
 }

@@ -48,6 +48,20 @@ return packer.startup(function(use)
   use "wbthomason/packer.nvim" -- Have packer manage itself
   use "nvim-lua/popup.nvim"    -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim"  -- Useful lua functions used by lots of plugins
+  use {
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require("lsp_signature").setup({
+        bind = true,                      -- Se enlaza automáticamente al LSP
+        hint_enable = true,               -- Activa la sugerencia en línea (signature hint)
+        handler_opts = {
+          border = "rounded"              -- Opcional: bordes redondeados en la ventanita
+        },
+        extra_trigger_chars = { "(", "," }, -- Caracteres que disparan el signature help
+        toggle_key = "<M-x>"              -- Tecla para activar/desactivar el plugin (opcional)
+      })
+    end
+  }
   use "nvim-telescope/telescope.nvim"
   use "nvim-telescope/telescope-media-files.nvim"
   use "lukas-reineke/indent-blankline.nvim"

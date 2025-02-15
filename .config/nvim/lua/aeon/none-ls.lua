@@ -14,13 +14,13 @@ null_ls.setup({
     -- null_ls.builtins.formatting.ormolu,
   },
   -- Agregar un manejador de errores para evitar que el archivo se corrompa
-  on_attach = function(client)
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        callback = function()
-          pcall(vim.lsp.buf.format, { async = true })
-        end,
-      })
-    end
-  end,
+  -- on_attach = function(client)
+  --   if client.supports_method("textDocument/formatting") then
+  --     vim.api.nvim_create_autocmd("BufWritePre", {
+  --       callback = function()
+  --         pcall(vim.lsp.buf.format, { async = true })
+  --       end,
+  --     })
+  --   end
+  -- end,
 })

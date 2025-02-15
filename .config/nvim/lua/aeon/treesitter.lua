@@ -4,7 +4,8 @@ if not status_ok then
 end
 
 treesitter.setup {
-    ensure_installed = { "haskell", "lua", "python", "javascript", "typescript", "tsx", "c", "html", "css", "rust" }, -- Añade lenguajes que uses
+    -- ensure_installed = { "haskell", "lua", "python", "javascript", "typescript", "tsx", "c", "html", "css", "rust" }, -- Añade lenguajes que uses
+    ensure_installed = { "lua", "python", "javascript", "tsx", "c", "html", "css", "c_sharp", }, -- Añade lenguajes que uses
     highlight = {
         enable = true,              -- Activa el resaltado de sintaxis
         additional_vim_regex_highlighting = false,
