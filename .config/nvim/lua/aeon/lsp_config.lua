@@ -1,32 +1,31 @@
-local status_ok, mason = pcall(require, "mason")
-if not status_ok then
-  return
+local mason_ok, mason = pcall(require, "mason")
+if not mason_ok then return end
+
+local mason_lsp_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not mason_lsp_ok then return end
+
+local lspconfig_ok, lspconfig = pcall(require, "lspconfig")
+if not lspconfig_ok then return end
+
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+local cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if cmp_ok then
+  capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 end
 
-local status_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
-if not status_ok then
-  return
-end
-
-local status_ok, lspconfig = pcall(require, "lspconfig")
-if not status_ok then
-  return
-end
-
-local on_attach = function(client, bufnr)
-  require("lsp_signature").on_attach({
-    bind = true,
-    doc_lines = 2,          -- Número de líneas para la documentación
-    floating_window = true, -- Ventana flotante para mostrar la firma
-    fix_pos = false,
-    hint_enable = true,
-    hint_prefix = " ", -- Puedes personalizar el ícono
-    hi_parameter = "Search", -- Highlight para el parámetro actual
-    handler_opts = {
-      border = "rounded" -- Borde redondeado en la ventana
-    },
-  }, bufnr)
-end
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if vim.tbl_contains({ 'null-ls' }, client.name) then  -- blacklist lsp
+      return
+    end
+    require("lsp_signature").on_attach({
+      floating_window = false
+    }, bufnr)
+  end,
+})
 
 mason.setup()
 mason_lspconfig.setup({
@@ -46,11 +45,18 @@ mason_lspconfig.setup({
 lspconfig.lua_ls.setup {}
 lspconfig.clangd.setup {}
 lspconfig.pyright.setup {
-  settings = {
-    python = {
-      pythonPath = vim.fn.systemlist("poetry env info --path")[1] .. "/bin/python"
-    }
-  }
+  capabilities = capabilities,
+  -- on_attach = on_attach,
+  on_new_config = function(config, root_dir)
+    local handle = io.popen('cd "' .. root_dir .. '" && poetry env info -p 2>/dev/null')
+    if handle then
+      local env = handle:read("*a"):gsub("%s+$", "") -- Leer salida y eliminar espacios en blanco
+      handle:close()
+      if env and #env > 0 then
+        config.settings.python.pythonPath = env .. '/bin/python'
+      end
+    end
+  end
 }
 lspconfig.gopls.setup {}
 lspconfig.cssls.setup {}
@@ -59,8 +65,8 @@ lspconfig.bashls.setup {}
 
 -- Configuración para C#
 lspconfig.omnisharp.setup {
-  on_attach = on_attach,
-  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  -- on_attach = on_attach,
+  capabilities = capabilities,
   cmd = { "dotnet", "/home/moruz/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
   root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
   enable_import_completion = true,
@@ -71,11 +77,11 @@ lspconfig.omnisharp.setup {
 -- Configuración para typescript
 lspconfig.ts_ls.setup {
   on_attach = function(client, bufnr)
-    on_attach(client, bufnr) -- Llamamos a la función on_attach común
+    -- on_attach(client, bufnr) -- Llamamos a la función on_attach común
     -- Opciones adicionales, por ejemplo:
     client.server_capabilities.documentFormattingProvider = false
   end,
-  capabilities = require("cmp_nvim_lsp").default_capabilities()
+  capabilities = capabilities
 }
 
 -- Configuración para Haskell
